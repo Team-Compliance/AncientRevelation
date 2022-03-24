@@ -1,0 +1,3 @@
+<items gfxroot="gfx/items/" version="1" deathanm2="gfx/death items.anm2">
+	<passive id="0" achievement="470" gfx="Collectibles_643_Revelation.png" name="Ancient Revelation" description="Remember what came before" cache="damage firedelay shotspeed flying tearcolor tearflag" devilprice="2" quality="4" tags="summonable offensive angel" />
+</items>
