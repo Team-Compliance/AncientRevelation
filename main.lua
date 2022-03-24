@@ -41,3 +41,11 @@ function mod:EvaluateCache(player, cacheFlag)
 	end
 end
 mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, mod.EvaluateCache)
+
+--Minimap Items Compatibility
+if MiniMapiItemsAPI then
+    local frame = 1
+    local ancientrevelationSprite = Sprite()
+    ancientrevelationSprite:Load("gfx/ui/minimapitems/ancientrevelation_icon.anm2", true)
+    MiniMapiItemsAPI:AddCollectible(CollectibleType.COLLECTIBLE_ANCIENT_REVELATION, ancientrevelationSprite, "CustomIconAncientRevelation", frame)
+end
