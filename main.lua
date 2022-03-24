@@ -6,13 +6,12 @@ CollectibleType.COLLECTIBLE_ANCIENT_REVELATION = Isaac.GetItemIdByName("Ancient 
 mod:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, function(_, player)
 	local TotPlayers = #Isaac.FindByType(EntityType.ENTITY_PLAYER)
 	if TotPlayers == 0 then
+		local data = player:GetData()
+		data.AncientCount = 0
+
 		local hearts_en = "{{SoulHeart}} +2 Soul Hearts"
 		local hearts_spa = "{{SoulHeart}} +2 Corazones de alma"
-
 		if ComplianceImmortal then
-			local data = player:GetData().ImmortalHeart
-			data.AncientCount = 0
-
 			hearts_en = "{{ImmortalHeart}} +2 Immortal Hearts"
 			hearts_spa = "{{ImmortalHeart}} +2 Corazones inmortales"
 		end
@@ -46,10 +45,11 @@ mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, mod.EvaluateCache)
 
 function mod:postPlayerUpdate(player)
 	if not ComplianceImmortal then return end
-	local data = player:GetData().ImmortalHeart
+	local data = player:GetData()
 	
 	if player:GetCollectibleNum(CollectibleType.COLLECTIBLE_ANCIENT_REVELATION) > data.AncientCount then
-		data.ComplianceImmortalHeart = data.ComplianceImmortalHeart + 4
+		player:AddSoulHearts(4)
+		data.ImmortalHeart.ComplianceImmortalHeart = data.ImmortalHeart.ComplianceImmortalHeart + 4
 		
 		data.AncientCount = player:GetCollectibleNum(CollectibleType.COLLECTIBLE_ANCIENT_REVELATION)
 	end
