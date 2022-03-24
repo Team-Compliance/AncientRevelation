@@ -34,6 +34,7 @@ function mod:EvaluateCache(player, cacheFlag)
 			player.CanFly = true
 		elseif cacheFlag == CacheFlag.CACHE_TEARCOLOR then
 			player.TearColor = Color(player.TearColor.R, player.TearColor.G, player.TearColor.B, player.TearColor.A, 260/255, 250/255, 40/255)
+			player.LaserColor = Color(player.LaserColor.R, player.LaserColor.G, player.LaserColor.B, player.LaserColor.A, 260/255, 250/255, 40/255)
 		elseif cacheFlag == CacheFlag.CACHE_TEARFLAG then
 			player.TearFlags = player.TearFlags | TearFlags.TEAR_SPECTRAL
 			player.TearFlags = player.TearFlags | TearFlags.TEAR_TURN_HORIZONTAL
