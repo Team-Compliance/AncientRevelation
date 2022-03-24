@@ -10,6 +10,9 @@ mod:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, function(_, player)
 		local hearts_spa = "{{SoulHeart}} +2 Corazones de alma"
 
 		if ComplianceImmortal then
+			local data = player:GetData().ImmortalHeart
+			data.AncientCount = 0
+
 			hearts_en = "{{ImmortalHeart}} +2 Immortal Hearts"
 			hearts_spa = "{{ImmortalHeart}} +2 Corazones inmortales"
 		end
@@ -24,12 +27,7 @@ end)
 
 function mod:EvaluateCache(player, cacheFlag)
 	if player:HasCollectible(CollectibleType.COLLECTIBLE_ANCIENT_REVELATION) then	
-		if cacheFlag == CacheFlag.CACHE_DAMAGE then
-			if ComplianceImmortal then
-				local data = player:GetData().ImmortalHeart
-				data.ComplianceImmortalHeart = data.ComplianceImmortalHeart + 4
-			end
-		elseif cacheFlag == CacheFlag.CACHE_FIREDELAY then
+		if cacheFlag == CacheFlag.CACHE_FIREDELAY then
 			player.MaxFireDelay = player.MaxFireDelay - 2
 		elseif cacheFlag == CacheFlag.CACHE_SHOTSPEED then
 			player.ShotSpeed = player.ShotSpeed + 0.48
@@ -45,6 +43,18 @@ function mod:EvaluateCache(player, cacheFlag)
 	end
 end
 mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, mod.EvaluateCache)
+
+function mod:postPlayerUpdate(player)
+	if not ComplianceImmortal then return end
+	local data = player:GetData().ImmortalHeart
+	
+	if player:GetCollectibleNum(CollectibleType.COLLECTIBLE_ANCIENT_REVELATION) > data.AncientCount then
+		data.ComplianceImmortalHeart = data.ComplianceImmortalHeart + 4
+		
+		data.AncientCount = player:GetCollectibleNum(CollectibleType.COLLECTIBLE_ANCIENT_REVELATION)
+	end
+end
+mod:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, mod.postPlayerUpdate)
 
 --Minimap Items Compatibility
 if MiniMapiItemsAPI then
