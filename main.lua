@@ -3,6 +3,22 @@ local mod = AncientRevelation
 
 CollectibleType.COLLECTIBLE_ANCIENT_REVELATION = Isaac.GetItemIdByName("Ancient Revelation")
 
+mod:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, function(_, player)
+	local TotPlayers = #Isaac.FindByType(EntityType.ENTITY_PLAYER)
+	if TotPlayers == 0 then
+		local hearts_en = "{{SoulHeart}} +2 Soul Hearts"
+
+		if ComplianceImmortal then
+			hearts_en = "{{ImmortalHeartIcon}} +2 Immortal Hearts"
+		end
+		
+		if EID then
+			EID:addCollectible(CollectibleType.COLLECTIBLE_ANCIENT_REVELATION, "Grants flight#"..hearts_en.."#↑ {{Shotspeed}} +0.48 Shot Speed up#↑ {{Tears}} +1 Fire Rate up#Spectral tears#Tears turn 90 degrees to target enemies that they may have missed", "Ancient Revelation", "en_us")
+			EID:assignTransformation("collectible", CollectibleType.COLLECTIBLE_ANCIENT_REVELATION, "10") -- Seraphim
+		end
+	end
+end)
+
 function mod:EvaluateCache(player, cacheFlag)
 	if player:HasCollectible(CollectibleType.COLLECTIBLE_ANCIENT_REVELATION) then	
 		if cacheFlag == CacheFlag.CACHE_DAMAGE then
