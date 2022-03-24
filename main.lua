@@ -9,7 +9,7 @@ mod:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, function(_, player)
 		local hearts_en = "{{SoulHeart}} +2 Soul Hearts"
 
 		if ComplianceImmortal then
-			hearts_en = "{{ImmortalHeartIcon}} +2 Immortal Hearts"
+			hearts_en = "{{ImmortalHeart}} +2 Immortal Hearts"
 		end
 		
 		if EID then
