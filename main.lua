@@ -5,6 +5,11 @@ CollectibleType.COLLECTIBLE_ANCIENT_REVELATION = Isaac.GetItemIdByName("Ancient 
 
 function mod:EvaluateCache(player, cacheFlag)
 	if player:HasCollectible(CollectibleType.COLLECTIBLE_ANCIENT_REVELATION) then
+		if ComplianceImmortal then
+			local data = player:GetData().ImmortalHeart
+			data.ComplianceImmortalHeart = data.ComplianceImmortalHeart + 4
+		end
+		
 		if cacheFlag == CacheFlag.CACHE_DAMAGE then
 		
 		elseif cacheFlag == CacheFlag.CACHE_FIREDELAY then
