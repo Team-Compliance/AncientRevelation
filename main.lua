@@ -10,14 +10,17 @@ mod:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, function(_, player)
 	local TotPlayers = #Isaac.FindByType(EntityType.ENTITY_PLAYER)
 	if TotPlayers == 0 then
 		local hearts_en = "{{SoulHeart}} +2 Soul Hearts"
+		local hearts_ru = "{{SoulHeart}} +2 синих сердца"
 		local hearts_spa = "{{SoulHeart}} +2 Corazones de alma"
 		if ComplianceImmortal then
 			hearts_en = "{{ImmortalHeart}} +2 Immortal Hearts"
+			hearts_ru = "{{ImmortalHeart}} +2 бессмертных сердца"
 			hearts_spa = "{{ImmortalHeart}} +2 Corazones inmortales"
 		end
 		
 		if EID then
 			EID:addCollectible(CollectibleType.COLLECTIBLE_ANCIENT_REVELATION, "Grants flight#"..hearts_en.."#↑ {{Shotspeed}} +0.48 Shot Speed up#↑ {{Tears}} +1 Fire Rate up#Spectral tears#Tears turn 90 degrees to target enemies that they may have missed", "Ancient Revelation", "en_us")
+			EID:addCollectible(CollectibleType.COLLECTIBLE_ANCIENT_REVELATION, "Даёт полёт#"..hearts_ru.."#↑ {{Shotspeed}} +0.48 к скорости полёта слезы#↑ {{Tears}} +1 к скорострельности#Спектральные слёзы#Слёзы поворачиваются на 90 градусов, чтобы попасть во врагов, которых они могли пропустить", "Древнее откровение", "ru")
 			EID:addCollectible(CollectibleType.COLLECTIBLE_ANCIENT_REVELATION, "Otorga vuelo#"..hearts_spa.."#↑ {{Shotspeed}} Vel. de tiro +0.48#↑ {{Tears}} Lágrimas +1#Lágrimas espectrales#Las lágrimas girarán en 90 grados hacia un enemigo si es que fallan", "Antigua Revelación", "spa")		
 			EID:assignTransformation("collectible", CollectibleType.COLLECTIBLE_ANCIENT_REVELATION, "10") -- Seraphim
 		end
