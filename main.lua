@@ -5,7 +5,8 @@ CollectibleType.COLLECTIBLE_ANCIENT_REVELATION = Isaac.GetItemIdByName("Ancient 
 
 mod:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, function(_, player)
 	local data = player:GetData()
-	data.AncientCount = 0
+	data.ancientWasQueued = false
+	data.lastSoulHearts = player:GetSoulHearts()
 
 	local TotPlayers = #Isaac.FindByType(EntityType.ENTITY_PLAYER)
 	if TotPlayers == 0 then
@@ -49,12 +50,21 @@ mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, mod.EvaluateCache)
 function mod:postPlayerUpdate(player)
 	if not ComplianceImmortal then return end
 	local data = player:GetData()
+	local queuedItem = player.QueuedItem
 	
-	if player:GetCollectibleNum(CollectibleType.COLLECTIBLE_ANCIENT_REVELATION) > data.AncientCount then
-		player:AddSoulHearts(4)
-		data.ImmortalHeart.ComplianceImmortalHeart = data.ImmortalHeart.ComplianceImmortalHeart + 4
-		
-		data.AncientCount = player:GetCollectibleNum(CollectibleType.COLLECTIBLE_ANCIENT_REVELATION)
+	if queuedItem.Item and queuedItem.Item.ID == CollectibleType.COLLECTIBLE_ANCIENT_REVELATION then
+		data.ancientWasQueued = true
+		data.lastSoulHearts = player:GetSoulHearts()
+	end
+	
+	if player:IsItemQueueEmpty() then
+		if data.ancientWasQueued then
+			if player:GetSoulHearts() > data.lastSoulHearts then
+				data.ImmortalHeart.ComplianceImmortalHeart = data.ImmortalHeart.ComplianceImmortalHeart + 4
+				
+				data.ancientWasQueued = true
+			end
+		end
 	end
 end
 mod:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, mod.postPlayerUpdate)
