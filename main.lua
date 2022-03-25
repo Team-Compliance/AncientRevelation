@@ -63,3 +63,40 @@ if MiniMapiItemsAPI then
     ancientrevelationSprite:Load("gfx/ui/minimapitems/ancientrevelation_icon.anm2", true)
     MiniMapiItemsAPI:AddCollectible(CollectibleType.COLLECTIBLE_ANCIENT_REVELATION, ancientrevelationSprite, "CustomIconAncientRevelation", frame)
 end
+
+--Encyclopeida Compatibility
+local Wiki = {
+  AncientRevelation = {
+    { -- Effect
+      {str = "Effect", fsize = 2, clr = 3, halign = 0},
+      {str = "Grants 2 soul hearts (Or 2 immortal hearts if that mod is installed)"},
+      {str = "Grants flight."},
+      {str = "Grants spectral tears."},
+      {str = "+0.48 Shot Speed up."},
+      {str = "+1 Fire Rate up."},
+      {str = "Tears turn 90 degrees to target enemies that they may have missed."},
+    },
+    { -- Mod Compatibility
+      {str = "Mod Compatibility", fsize = 2, clr = 3, halign = 0},
+      {str = "EID - Shows a description of the item."},
+      {str = "Encyclopedia - Shows a description of the item."},
+      {str = "Minimap Items - Shows a minimap icon of the item."},
+      {str = "Immortal Hearts - Upon pickup, the item gives 2 immortal hearts instead of 2 soul hearts."},
+    },
+    { -- Trivia
+      {str = "Trivia", fsize = 2, clr = 3, halign = 0},
+      {str = "This item was what Revelation originally was in the Antibirth mod."},
+      {str = "This mod was primarily coded by kittenchilly!"},
+    },
+  }
+}
+
+if Encyclopedia then
+	Encyclopedia.AddItem({
+	  ID = CollectibleType.COLLECTIBLE_ANCIENT_REVELATION,
+	  WikiDesc = Wiki.AncientRevelation,
+	  Pools = {
+		Encyclopedia.ItemPools.POOL_ANGEL,
+		Encyclopedia.ItemPools.POOL_GREED_ANGEL,
+	  },
+	})
