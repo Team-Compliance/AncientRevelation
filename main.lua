@@ -100,3 +100,4 @@ if Encyclopedia then
 		Encyclopedia.ItemPools.POOL_GREED_ANGEL,
 	  },
 	})
+end
