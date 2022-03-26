@@ -14,14 +14,6 @@
 	<color name="fly_cyan" r="680" g="1024" b="1024" or="0" og="0" ob="0"/>
 	<color name="fly_bod" r="630" g="197" b="205"/>
 	
-	<!-- Book of Despair -->
-	<locust id="1" speed="2" color="fly_bod" />
-	<!-- Bowl of Tears -->
-	<locust id="2" count="3" damageMultiplier="0.5" color="fly_blue" />
-	<!-- Donkey Jawbone -->
-	<locust id="3" damageMultiplier="2" scale="2" color="fly_orange" />
-	<!-- Menorah -->
-	<locust id="4" damageMultiplier="0.75" count="2" scale="0.75" color="fly_blue" />
-	<!-- Stone Bombs -->
-	<locust id="5" tearFlags="70" color="default" gfx="sblocust.png" />
+	<!-- Ancient Revelation -->
+	<locust id="1" tearFlags="2" color="fly_yellow" />
 </locusts>
