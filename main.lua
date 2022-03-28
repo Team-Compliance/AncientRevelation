@@ -29,9 +29,11 @@ mod:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, function(_, player)
 end)
 
 function mod:EvaluateCache(player, cacheFlag)
-	if player:HasCollectible(CollectibleType.COLLECTIBLE_ANCIENT_REVELATION) then	
+	for i = 1, player:GetCollectibleNum(CollectibleType.COLLECTIBLE_ANCIENT_REVELATION) do
 		if cacheFlag == CacheFlag.CACHE_FIREDELAY then
-			player.MaxFireDelay = player.MaxFireDelay - 2
+			local firerate = 30/(player.MaxFireDelay + 1)
+			firerate = firerate + 1
+			player.MaxFireDelay = (30/firerate) - 1
 		elseif cacheFlag == CacheFlag.CACHE_SHOTSPEED then
 			player.ShotSpeed = player.ShotSpeed + 0.48
 		elseif cacheFlag == CacheFlag.CACHE_FLYING then
