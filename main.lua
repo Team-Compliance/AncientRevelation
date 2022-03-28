@@ -28,12 +28,16 @@ mod:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, function(_, player)
 	end
 end)
 
+local function tearsUp(firedelay, val)
+    local currentTears = 30 / (firedelay + 1)
+    local newTears = currentTears + val
+    return math.max((30 / newTears) - 1, -0.75)
+end
+
 function mod:EvaluateCache(player, cacheFlag)
 	for i = 1, player:GetCollectibleNum(CollectibleType.COLLECTIBLE_ANCIENT_REVELATION) do
 		if cacheFlag == CacheFlag.CACHE_FIREDELAY then
-			local firerate = 30/(player.MaxFireDelay + 1)
-			firerate = firerate + 1
-			player.MaxFireDelay = (30/firerate) - 1
+			player.MaxFireDelay = tearsUp(player.MaxFireDelay, 1)
 		elseif cacheFlag == CacheFlag.CACHE_SHOTSPEED then
 			player.ShotSpeed = player.ShotSpeed + 0.48
 		elseif cacheFlag == CacheFlag.CACHE_FLYING then
