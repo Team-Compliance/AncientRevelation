@@ -1,8 +1,11 @@
+<?xml version="1.1" encoding="UTF-8"?>
 <metadata>
-	<name>Ancient Revelation</name>
-	<directory>ancient revelation</directory>
-	<description/>
-	<version>1.1</version>
-	<visibility/>
+    <name>Ancient Revelation</name>
+    <directory>ancient revelation</directory>
+    <id>2785697296</id>
+    <description></description>
+    <version>1.1</version>
+    <visibility>Private</visibility>
+    <tag id="Lua"/>
+    <tag id="Items"/>
 </metadata>
-
