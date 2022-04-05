@@ -55,11 +55,13 @@ mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, mod.EvaluateCache)
 
 function mod:postPlayerUpdate(player)
 	if not ComplianceImmortal then return end
-	local data = player:GetData()
 	
 	if player:GetPlayerType() == PlayerType.PLAYER_THESOUL_B then
 		player = player:GetMainTwin()
 	end
+	
+	local data = player:GetData()
+	
 	if player:GetPlayerType() == PlayerType.PLAYER_THEFORGOTTEN then
 		player = player:GetSubPlayer()
 	end
