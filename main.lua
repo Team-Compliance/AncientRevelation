@@ -6,7 +6,6 @@ CollectibleType.COLLECTIBLE_ANCIENT_REVELATION = Isaac.GetItemIdByName("Ancient 
 mod:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, function(_, player)
 	local data = player:GetData()
 	data.AncientCount = player:GetCollectibleNum(CollectibleType.COLLECTIBLE_ANCIENT_REVELATION)
-	data.lastSoulHearts = player:GetSoulHearts()
 
 	local TotPlayers = #Isaac.FindByType(EntityType.ENTITY_PLAYER)
 	if TotPlayers == 0 then
@@ -56,30 +55,26 @@ mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, mod.EvaluateCache)
 function mod:postPlayerUpdate(player)
 	if not ComplianceImmortal then return end
 	
+	local data = player:GetData()
+	if not data.lastSoulHearts then
+		data.lastSoulHearts = 0
+	end
 	if player:GetPlayerType() == PlayerType.PLAYER_THESOUL_B then
 		player = player:GetMainTwin()
 	end
-	
-	local data = player:GetData()
-	
 	if player:GetPlayerType() == PlayerType.PLAYER_THEFORGOTTEN then
 		player = player:GetSubPlayer()
 	end
-		
+	
 	if player:GetCollectibleNum(CollectibleType.COLLECTIBLE_ANCIENT_REVELATION) == data.AncientCount then
 		data.lastSoulHearts = player:GetSoulHearts()
 	end
 	data.AncientCount = player:GetCollectibleNum(CollectibleType.COLLECTIBLE_ANCIENT_REVELATION)
 	
 	if player:GetSoulHearts() > data.lastSoulHearts then
-		local amount = 4
-		if player:GetSoulHearts() % 2 ~= 0 then
-			player:AddSoulHearts(-1)
-			if data.ImmortalHeart.ComplianceImmortalHeart % 2 ~= 0 then
-				amount = amount - 1 -- keep it even
-			end
-		end
-		data.ImmortalHeart.ComplianceImmortalHeart = data.ImmortalHeart.ComplianceImmortalHeart + amount
+		player:AddSoulHearts(-4)
+		
+		ComplianceImmortal.AddImmortalHearts(player, 4)
 	end
 end
 mod:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, mod.postPlayerUpdate)
