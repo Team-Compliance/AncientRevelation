@@ -54,7 +54,7 @@ mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, mod.EvaluateCache)
 
 function mod:postPlayerUpdate(player)
 	if not ComplianceImmortal then return end
-	
+	if player.Parent ~= nil then return end
 	local data = player:GetData()
 	if not data.lastSoulHearts then
 		data.lastSoulHearts = 0
